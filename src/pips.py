@@ -1,3 +1,4 @@
+from audioop import reverse
 from enum import Enum, unique
 
 @unique
@@ -16,9 +17,7 @@ class Pips(Enum):
 
     @classmethod
     def reversedValues(cls):
-        pips = cls.values()
-        pips.reverse()
-        return pips
+        return reversed(cls.values())
     
     @classmethod
     def minus(cls, pip):

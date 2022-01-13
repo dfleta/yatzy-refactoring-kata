@@ -1,7 +1,7 @@
 from src.yatzy import Yatzy
 
-# These unit tests can be run using the py.test framework
-# available from http://pytest.org/
+# Casos test iniciales del kata para refactorizar
+# No lanzarlos contra mi solucion.
 
 def test_chance_scores_sum_of_all_dice():
         expected = 15

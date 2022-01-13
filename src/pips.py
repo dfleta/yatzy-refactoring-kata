@@ -22,7 +22,7 @@ class Pips(Enum):
     
     @classmethod
     def minus(cls, pip):
-        return set(cls.values()) - {pip}
+        return set(cls.values()) - {pip.value}
 
 
 if __name__ == "__main__":

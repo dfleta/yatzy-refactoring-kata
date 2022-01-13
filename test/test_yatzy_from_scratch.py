@@ -4,7 +4,7 @@
 import pytest
 from src.yatzy import Yatzy
 
-
+@pytest.mark.chance
 def test_chance():
     '''
     Chance
@@ -15,7 +15,7 @@ def test_chance():
     assert 14 == Yatzy.chance(1, 1, 3, 3, 6)
     assert 21 == Yatzy.chance(4, 5, 5, 6, 1)
 
-
+@pytest.mark.yatzy
 def test_yatzy():
     '''
     Yatzy
@@ -45,6 +45,7 @@ def test_yatzy():
 # Los algoritmos para iterar sobre la tirada de dados
 # son muy complejos.
 
+@pytest.mark.ones
 def test_ones():
     '''
     The player scores the sum of the dice that reads one
@@ -52,7 +53,7 @@ def test_ones():
     assert 0 == Yatzy.ones(3, 3, 3, 4, 5)
     assert 5 == Yatzy.ones(1, 1, 1, 1, 1)
 
-
+@pytest.mark.twos
 def test_twos():
     '''
     The player scores the sum of the dice that reads two
@@ -60,7 +61,7 @@ def test_twos():
     assert 0 == Yatzy.twos(3, 3, 3, 4, 5)
     assert 4 == Yatzy.twos(2, 3, 2, 5, 1)
 
-
+@pytest.mark.threes
 def test_threes():
     '''
     The player scores the sum of the dice that reads three
@@ -76,7 +77,6 @@ def test_threes():
 # Las tuplas no son mutables. Refactorizo los metodos
 # anteriores de tupla a lista <= no es necesario:
 # ya que son estaticos y no emplean un objeto Yatzy
-
 
 def test_constructor():
     tirada = Yatzy(1, 1, 1, 1, 1)
@@ -94,7 +94,7 @@ def inyector():
     tirada = Yatzy(4, 5, 6, 4, 5)
     return tirada
 
-
+@pytest.mark.fours
 def test_fours(inyector):
     '''
     The player scores the sum of the dice that reads four
@@ -105,7 +105,7 @@ def test_fours(inyector):
     # los metodos estaticos como chance()
     assert valorEsperado == inyector.fours()
 
-
+@pytest.mark.fives
 def test_fives(inyector):
     '''
     The player scores the sum of the dice that reads five
@@ -113,7 +113,7 @@ def test_fives(inyector):
     valorEsperado = 10
     assert valorEsperado == inyector.fives()
 
-
+@pytest.mark.sixes
 def test_sixes(inyector):
     '''
     The player scores the sum of the dice that reads six
@@ -121,7 +121,7 @@ def test_sixes(inyector):
     valorEsperado = 6
     assert valorEsperado == inyector.sixes()
 
-
+@pytest.mark.pair
 def test_pair():
     '''
     Pair:
@@ -136,7 +136,7 @@ def test_pair():
     assert 6 == Yatzy.pair(3, 3, 3, 3, 1)
     assert 0 == Yatzy.pair(1, 2, 3, 4, 5)
 
-
+@pytest.mark.pairs
 def test_two_pairs():
     '''
     Two pairs:
@@ -160,6 +160,7 @@ def test_two_pairs():
 #
 # El algoritmo del metodo no es optimo, es complicado e ilegible.
 
+@pytest.mark.three_kind
 def test_three_of_a_kind():
     assert 9 == Yatzy.three_of_a_kind(3, 3, 3, 4, 5)
     assert 0 == Yatzy.three_of_a_kind(3, 3, 4, 5, 6)
@@ -172,7 +173,7 @@ def test_three_of_a_kind():
 #
 # El algoritmo del metodo no es optimo, es complicado e ilegible.
 
-
+@pytest.mark.four_kind
 def test_four_of_a_kind():
     assert 8 == Yatzy.four_of_a_kind(2, 2, 2, 2, 5)
     assert 0 == Yatzy.four_of_a_kind(2, 2, 2, 5, 5)
@@ -187,7 +188,7 @@ def test_four_of_a_kind():
 # El nombre del metodo no es consistente con la nomenclatura snake_case
 # El algoritmo es complicado e ineficiente.
 
-
+@pytest.mark.small
 def test_small_straight():
     assert 15 == Yatzy.small_straight(1, 2, 3, 4, 5)
     assert 0 == Yatzy.small_straight(2, 3, 4, 5, 6)
@@ -204,6 +205,7 @@ def test_small_straight():
 # El nombre del metodo no es consistente con la nomenclatura snake_case
 # El algoritmo es complicado e ineficiente.
 
+@pytest.mark.large
 def test_large_straight():
     assert 20 == Yatzy.large_straight(2, 3, 4, 5, 6)
     assert 0 == Yatzy.large_straight(1, 2, 3, 4, 5)
@@ -216,6 +218,7 @@ def test_large_straight():
 # If the dice are two of a kind and three of a kind, the
 # player scores the sum of all the dice.
 
+@pytest.mark.full
 def test_fullHouse():
     assert 8 == Yatzy.fullHouse(1, 1, 2, 2, 2)
     assert 0 == Yatzy.fullHouse(2, 2, 3, 3, 4)

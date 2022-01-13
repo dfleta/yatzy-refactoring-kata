@@ -85,24 +85,20 @@ class Yatzy:
         return list(filter(lambda pip: dice.count(pip) >= times, Pips.reversedValues()))
 
 
-    @staticmethod
-    def small_straight(*dice):
-        for pip in Pips.minus(Pips.SIX):
-            if dice.count(pip) != 1:
-                return 0
-        return Yatzy.chance(*dice)
+    @classmethod
+    def small_straight(cls, *dice):
+        return cls.chance(*dice) if not Pips.minus(Pips.SIX) - set(dice) else 0
 
-    @staticmethod
-    def large_straight(*dice):
-        for pip in Pips.minus(Pips.ONE):
-            if dice.count(pip) != 1:
-                return 0
-        return Yatzy.chance(*dice)
+    @classmethod
+    def large_straight(cls, *dice):
+        mi = Pips.minus(Pips.ONE)
+        s = set(dice)
+        return cls.chance(*dice) if not Pips.minus(Pips.ONE) - set(dice) else 0
 
-    @staticmethod
-    def fullHouse(*dice):
+    @classmethod
+    def fullHouse(cls, *dice):
         if Yatzy.__par_bajo(*dice) and Yatzy.three_of_a_kind(*dice):
-            return Yatzy.__par_bajo(*dice) + Yatzy.three_of_a_kind(*dice)
+            return cls.__par_bajo(*dice) + cls.three_of_a_kind(*dice)
         else:
             return 0
 

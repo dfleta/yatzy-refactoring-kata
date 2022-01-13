@@ -2,6 +2,10 @@ from src.pips import Pips
 
 class Yatzy:
 
+    # No es necesario.
+    # Lo mantengo para no romper la interfaz
+    # publica de la clase segun los
+    # casos test originales.
     def __init__(self, *dice):
         self.dice = list(dice)
 
@@ -56,18 +60,8 @@ class Yatzy:
     @staticmethod
     def two_pairs(*dice):
         PAIR = 2
-        pairs = 0
-        score = 0
-        pip = Pips.ONE.value
-        while pairs < 2 and pip <= Pips.SIX.value:
-            if dice.count(pip) >= 2:
-                pairs += 1
-                score += PAIR * pip
-            pip += 1
-        if pairs == 2:
-            return score
-        else:
-            return 0
+        pips_pairs = list(filter(lambda pip: dice.count(pip) >= PAIR, Pips.reversedValues()))
+        return sum(pips_pairs) * PAIR if len(pips_pairs) == 2 else 0
 
     @staticmethod
     def three_of_a_kind(*dice):

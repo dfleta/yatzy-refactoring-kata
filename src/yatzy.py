@@ -57,27 +57,33 @@ class Yatzy:
                 return PAIR * pip
         return 0
 
-    @staticmethod
-    def two_pairs(*dice):
+    @classmethod
+    def two_pairs(cls, *dice):
         PAIR = 2
-        pips_pairs = list(filter(lambda pip: dice.count(pip) >= PAIR, Pips.reversedValues()))
+        pips_pairs = cls.__filter_pips_repeated(dice, PAIR)
         return sum(pips_pairs) * PAIR if len(pips_pairs) == 2 else 0
 
-    @staticmethod
-    def three_of_a_kind(*dice):
+    @classmethod
+    def three_of_a_kind(cls, *dice):
         THREE = 3
-        for pip in Pips.reversedValues():
-            if dice.count(pip) >= THREE:
-                return THREE * pip
-        return 0
+        pip = cls.__bigger_pip_repeated(dice, THREE)
+        return pip * THREE if pip else 0
 
-    @staticmethod
-    def four_of_a_kind(*dice):
+    @classmethod
+    def four_of_a_kind(cls, *dice):
         FOUR = 4
-        for pip in Pips.reversedValues():
-            if dice.count(pip) >= FOUR:
-                return FOUR * pip
-        return 0
+        pip = cls.__bigger_pip_repeated(dice, FOUR)
+        return pip * FOUR if pip else 0
+
+    @classmethod
+    def __bigger_pip_repeated(cls, dice, times):
+        pips = cls.__filter_pips_repeated(dice, times)
+        return pips[0] if pips else []
+
+    @classmethod
+    def __filter_pips_repeated(cls, dice, times):
+        return list(filter(lambda pip: dice.count(pip) >= times, Pips.reversedValues()))
+
 
     @staticmethod
     def small_straight(*dice):

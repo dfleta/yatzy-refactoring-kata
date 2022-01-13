@@ -1,4 +1,4 @@
-from pips import Pips
+from src.pips import Pips
 
 class Yatzy:
 
@@ -14,41 +14,41 @@ class Yatzy:
 
     @staticmethod
     def yatzy(*dice):
-        if dice.count(dice[0]) != 5:
+        if dice.count(dice[0]) != len(dice):
             return 0
         return 50
 
     @staticmethod
     def ones(*dice):
-        ONE = 1
+        ONE = Pips.ONE.value
         return dice.count(ONE) * ONE
 
     @staticmethod
     def twos(*dice):
-        TWO = 2
+        TWO = Pips.TWO.value
         return dice.count(TWO) * TWO
 
     @staticmethod
     def threes(*dice):
-        THREE = 3
+        THREE = Pips.THREE.value
         return dice.count(THREE) * THREE
 
     def fours(self):
-        FOUR = 4
+        FOUR = Pips.FOUR.value
         return self.dice.count(FOUR) * FOUR
 
     def fives(self):
-        FIVE = 5
+        FIVE = Pips.FIVE.value
         return self.dice.count(FIVE) * FIVE
 
     def sixes(self):
-        SIX = 6
+        SIX = Pips.SIX.value
         return self.dice.count(SIX) * SIX
 
     @staticmethod
     def pair(*dice):
         PAIR = 2
-        for numero in range(6, 0, -1):
+        for numero in Pips.reversedValues():
             if dice.count(numero) >= PAIR:
                 return PAIR * numero
         return 0
@@ -72,7 +72,7 @@ class Yatzy:
     @staticmethod
     def three_of_a_kind(*dice):
         THREE = 3
-        for numero in range(6, 0, -1):
+        for numero in Pips.reversedValues():
             if dice.count(numero) >= THREE:
                 return THREE * numero
         return 0
@@ -80,21 +80,21 @@ class Yatzy:
     @staticmethod
     def four_of_a_kind(*dice):
         FOUR = 4
-        for numero in range(6, 0, -1):
+        for numero in Pips.reversedValues():
             if dice.count(numero) >= FOUR:
                 return FOUR * numero
         return 0
 
     @staticmethod
     def small_straight(*dice):
-        for numero in range(1, 6):
+        for numero in Pips.minus(6):
             if dice.count(numero) != 1:
                 return 0
         return Yatzy.chance(*dice)
 
     @staticmethod
     def large_straight(*dice):
-        for numero in range(2, 7):
+        for numero in Pips.minus(1):
             if dice.count(numero) != 1:
                 return 0
         return Yatzy.chance(*dice)
@@ -109,7 +109,7 @@ class Yatzy:
     @staticmethod
     def __par_bajo(*dice):
         PAIR = 2
-        for numero in range(6, 0, -1):
+        for numero in Pips.reversedValues():
             if dice.count(numero) == PAIR:
                 return PAIR * numero
         return 0

@@ -1,4 +1,3 @@
-from audioop import reverse
 from enum import Enum, unique
 
 @unique
@@ -37,4 +36,4 @@ if __name__ == "__main__":
     
     print(Pips.values())
     print(Pips.reversedValues())
-    print(Pips.minus(1))
+    print(Pips.minus(Pips.FIVE))

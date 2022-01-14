@@ -66,17 +66,17 @@ class Yatzy:
     @classmethod
     def three_of_a_kind(cls, *dice):
         THREE = 3
-        pip = cls.__bigger_pip_repeated(dice, THREE)
+        pip = cls.__biggest_pip_repeated(dice, THREE)
         return pip * THREE if pip else 0
 
     @classmethod
     def four_of_a_kind(cls, *dice):
         FOUR = 4
-        pip = cls.__bigger_pip_repeated(dice, FOUR)
+        pip = cls.__biggest_pip_repeated(dice, FOUR)
         return pip * FOUR if pip else 0
 
     @classmethod
-    def __bigger_pip_repeated(cls, dice, times):
+    def __biggest_pip_repeated(cls, dice, times):
         pips = cls.__filter_pips_repeated(dice, times)
         return pips[0] if pips else []
 

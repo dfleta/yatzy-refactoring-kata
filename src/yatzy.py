@@ -51,7 +51,7 @@ class Yatzy:
 
     @staticmethod
     def pair(*dice):
-        PAIR = 2
+        PAIR = Pips.TWO.value
         for pip in Pips.reversedValues():
             if dice.count(pip) >= PAIR:
                 return PAIR * pip
@@ -59,7 +59,7 @@ class Yatzy:
 
     @classmethod
     def two_pairs(cls, *dice):
-        PAIR = 2
+        PAIR = Pips.TWO.value
         pips_pairs = cls.__filter_pips_repeated(dice, PAIR)
         return sum(pips_pairs) * PAIR if len(pips_pairs) == 2 else 0
 

@@ -2,6 +2,10 @@ from src.pips import Pips
 
 class Yatzy:
 
+    # propiedades de clase
+    ZERO = 0
+    FIFTY = 50
+
     # No es necesario.
     # Lo mantengo para no romper la interfaz
     # publica de la clase segun los
@@ -19,8 +23,8 @@ class Yatzy:
     @staticmethod
     def yatzy(*dice):
         if dice.count(dice[0]) != len(dice):
-            return 0
-        return 50
+            return Yatzy.ZERO
+        return Yatzy.FIFTY
 
     @staticmethod
     def ones(*dice):
@@ -55,25 +59,25 @@ class Yatzy:
         for pip in Pips.reversedValues():
             if dice.count(pip) >= PAIR:
                 return PAIR * pip
-        return 0
+        return Yatzy.ZERO
 
     @classmethod
     def two_pairs(cls, *dice):
         PAIR = Pips.TWO.value
         pips_pairs = cls.__filter_pips_repeated(dice, PAIR)
-        return sum(pips_pairs) * PAIR if len(pips_pairs) == 2 else 0
+        return sum(pips_pairs) * PAIR if len(pips_pairs) == 2 else Yatzy.ZERO
 
     @classmethod
     def three_of_a_kind(cls, *dice):
         THREE = Pips.THREE.value
         pip = cls.__biggest_pip_repeated(dice, THREE)
-        return pip * THREE if pip else 0
+        return pip * THREE if pip else Yatzy.ZERO
 
     @classmethod
     def four_of_a_kind(cls, *dice):
         FOUR = Pips.FOUR.value
         pip = cls.__biggest_pip_repeated(dice, FOUR)
-        return pip * FOUR if pip else 0
+        return pip * FOUR if pip else Yatzy.ZERO
 
     @classmethod
     def __biggest_pip_repeated(cls, dice, times):
@@ -86,18 +90,18 @@ class Yatzy:
 
     @classmethod
     def small_straight(cls, *dice):
-        return cls.chance(*dice) if not Pips.minus(Pips.SIX) - set(dice) else 0
+        return cls.chance(*dice) if not Pips.minus(Pips.SIX) - set(dice) else Yatzy.ZERO
 
     @classmethod
     def large_straight(cls, *dice):
-        return cls.chance(*dice) if not Pips.minus(Pips.ONE) - set(dice) else 0
+        return cls.chance(*dice) if not Pips.minus(Pips.ONE) - set(dice) else Yatzy.ZERO
 
     @classmethod
     def fullHouse(cls, *dice):
         if cls.two_of_a_kind(*dice) and cls.three_of_a_kind(*dice):
             return cls.two_of_a_kind(*dice) + cls.three_of_a_kind(*dice)
         else:
-            return 0
+            return Yatzy.ZERO
 
     @classmethod
     def two_of_a_kind(cls, *dice):
@@ -105,4 +109,4 @@ class Yatzy:
         for pip in Pips.reversedValues():
             if dice.count(pip) == PAIR:
                 return PAIR * pip
-        return 0
+        return Yatzy.ZERO

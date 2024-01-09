@@ -65,7 +65,7 @@ class Yatzy:
 
     @classmethod
     def three_of_a_kind(cls, *dice):
-        THREE = 3
+        THREE = Pips.THREE.value
         pip = cls.__biggest_pip_repeated(dice, THREE)
         return pip * THREE if pip else 0
 

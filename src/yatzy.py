@@ -101,7 +101,7 @@ class Yatzy:
 
     @classmethod
     def two_of_a_kind(cls, *dice):
-        PAIR = 2
+        PAIR = Pips.TWO.value
         for pip in Pips.reversedValues():
             if dice.count(pip) == PAIR:
                 return PAIR * pip

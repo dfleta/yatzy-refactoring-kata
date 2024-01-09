@@ -15,7 +15,7 @@ class Yatzy:
 
     @staticmethod
     def chance(*dice):
-        score = 0
+        score = Yatzy.ZERO
         for die in dice:
             score += die
         return score
@@ -65,7 +65,7 @@ class Yatzy:
     def two_pairs(cls, *dice):
         PAIR = Pips.TWO.value
         pips_pairs = cls.__filter_pips_repeated(dice, PAIR)
-        return sum(pips_pairs) * PAIR if len(pips_pairs) == 2 else Yatzy.ZERO
+        return sum(pips_pairs) * PAIR if len(pips_pairs) == Pips.TWO.value else Yatzy.ZERO
 
     @classmethod
     def three_of_a_kind(cls, *dice):

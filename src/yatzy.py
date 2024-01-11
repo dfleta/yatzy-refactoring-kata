@@ -15,16 +15,11 @@ class Yatzy:
 
     @staticmethod
     def chance(*dice):
-        score = Yatzy.ZERO
-        for die in dice:
-            score += die
-        return score
+        return sum(dice)
 
     @staticmethod
     def yatzy(*dice):
-        if dice.count(dice[0]) != len(dice):
-            return Yatzy.ZERO
-        return Yatzy.FIFTY
+        return Yatzy.FIFTY if len(set(dice)) == 1 else Yatzy.ZERO
 
     @staticmethod
     def ones(*dice):

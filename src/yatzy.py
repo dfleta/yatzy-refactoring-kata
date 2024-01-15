@@ -37,16 +37,16 @@ class Yatzy:
         return dice.count(THREE) * THREE
 
     def fours(self):
-        FOUR = Pips.FOUR.value
-        return self.dice.count(FOUR) * FOUR
+        return self.__sum_dice_equals(Pips.FOUR.value)
 
     def fives(self):
-        FIVE = Pips.FIVE.value
-        return self.dice.count(FIVE) * FIVE
+        return self.__sum_dice_equals(Pips.FIVE.value)
 
     def sixes(self):
-        SIX = Pips.SIX.value
-        return self.dice.count(SIX) * SIX
+        return self.__sum_dice_equals(Pips.SIX.value)
+
+    def __sum_dice_equals(self, pip):
+        return self.dice.count(pip) * pip
 
     @staticmethod
     def pair(*dice):

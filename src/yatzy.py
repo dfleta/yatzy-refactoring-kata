@@ -48,13 +48,11 @@ class Yatzy:
     def __sum_dice_equals(self, pip):
         return self.dice.count(pip) * pip
 
-    @staticmethod
-    def pair(*dice):
+    @classmethod
+    def pair(cls, *dice):
         PAIR = Pips.TWO.value
-        for pip in Pips.reversedValues():
-            if dice.count(pip) >= PAIR:
-                return PAIR * pip
-        return Yatzy.ZERO
+        pip= cls.__biggest_pip_repeated(dice, PAIR)
+        return pip * PAIR if pip else Yatzy.ZERO
 
     @classmethod
     def two_pairs(cls, *dice):

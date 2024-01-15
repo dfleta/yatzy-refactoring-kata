@@ -91,15 +91,13 @@ class Yatzy:
 
     @classmethod
     def fullHouse(cls, *dice):
-        if cls.two_of_a_kind(*dice) and cls.three_of_a_kind(*dice):
-            return cls.two_of_a_kind(*dice) + cls.three_of_a_kind(*dice)
+        if cls.__two_of_a_kind(*dice) and cls.three_of_a_kind(*dice):
+            return cls.__two_of_a_kind(*dice) + cls.three_of_a_kind(*dice)
         else:
             return Yatzy.ZERO
 
     @classmethod
-    def two_of_a_kind(cls, *dice):
+    def __two_of_a_kind(cls, *dice):
         PAIR = Pips.TWO.value
-        for pip in Pips.reversedValues():
-            if dice.count(pip) == PAIR:
-                return PAIR * pip
-        return Yatzy.ZERO
+        pips = list(filter(lambda pip: dice.count(pip) == Pips.TWO.value, Pips.reversedValues()))
+        return pips[0] * PAIR if pips else Yatzy.ZERO

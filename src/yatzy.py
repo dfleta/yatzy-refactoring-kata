@@ -77,11 +77,11 @@ class Yatzy:
     @classmethod
     def __biggest_pip_repeated(cls, dice, times):
         pips = cls.__filter_pips_repeated(dice, times)
-        return pips[0] if pips else []
+        return pips[-1] if pips else []
 
     @classmethod
     def __filter_pips_repeated(cls, dice, times):
-        return list(filter(lambda pip: dice.count(pip) >= times, Pips.reversedValues()))
+        return list(filter(lambda pip: dice.count(pip) >= times, Pips.values()))
 
     @classmethod
     def small_straight(cls, *dice):

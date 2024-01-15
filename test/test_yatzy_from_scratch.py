@@ -152,6 +152,7 @@ def test_two_pairs():
     assert 0 == Yatzy.two_pairs(1, 1, 2, 3, 4)
     assert 6 == Yatzy.two_pairs(1, 1, 2, 2, 2)
     assert 0 == Yatzy.two_pairs(1, 2, 3, 4, 5)
+    assert 0 == Yatzy.two_pairs(4, 4, 4, 4, 5)
 
 
 # Three of a kind:

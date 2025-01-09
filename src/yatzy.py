@@ -90,7 +90,7 @@ class Yatzy:
         return cls.chance(*dice) if not Pips.minus(Pips.ONE) - set(dice) else Yatzy.ZERO
 
     @classmethod
-    def fullHouse(cls, *dice):
+    def full_house(cls, *dice):
         if cls.__two_of_a_kind(*dice) and cls.three_of_a_kind(*dice):
             return cls.__two_of_a_kind(*dice) + cls.three_of_a_kind(*dice)
         else:

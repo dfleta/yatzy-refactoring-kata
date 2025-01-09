@@ -100,26 +100,26 @@ def test_fours(inyector):
     The player scores the sum of the dice that reads four
     '''
     # es necesario un objeto de tipo Yatzy ya creado
-    valorEsperado = 8
+    valor_esperado = 8
     # No puedo testear con fixtures = inyeccion de dependencias
     # los metodos estaticos como chance()
-    assert valorEsperado == inyector.fours()
+    assert valor_esperado == inyector.fours()
 
 @pytest.mark.fives
 def test_fives(inyector):
     '''
     The player scores the sum of the dice that reads five
     '''
-    valorEsperado = 10
-    assert valorEsperado == inyector.fives()
+    valor_esperado = 10
+    assert valor_esperado == inyector.fives()
 
 @pytest.mark.sixes
 def test_sixes(inyector):
     '''
     The player scores the sum of the dice that reads six
     '''
-    valorEsperado = 6
-    assert valorEsperado == inyector.sixes()
+    valor_esperado = 6
+    assert valor_esperado == inyector.sixes()
 
 @pytest.mark.pair
 def test_pair():
@@ -220,8 +220,8 @@ def test_large_straight():
 # player scores the sum of all the dice.
 
 @pytest.mark.full
-def test_fullHouse():
-    assert 8 == Yatzy.fullHouse(1, 1, 2, 2, 2)
-    assert 0 == Yatzy.fullHouse(2, 2, 3, 3, 4)
-    assert 0 == Yatzy.fullHouse(4, 4, 4, 4, 4)
-    assert 0 == Yatzy.fullHouse(4, 4, 4, 1, 2)
+def test_full_house():
+    assert 8 == Yatzy.full_house(1, 1, 2, 2, 2)
+    assert 0 == Yatzy.full_house(2, 2, 3, 3, 4)
+    assert 0 == Yatzy.full_house(4, 4, 4, 4, 4)
+    assert 0 == Yatzy.full_house(4, 4, 4, 1, 2)

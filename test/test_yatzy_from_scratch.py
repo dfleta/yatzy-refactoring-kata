@@ -88,14 +88,14 @@ def test_constructor():
 # consiste en simplificar los algoritmos para recorrer
 # la tirada de dados y sumar los puntos.
 
-@pytest.fixture
+@pytest.fixture(name="tirada")
 def inyector():
     # es el setup de unittest o de JUnit
     tirada = Yatzy(4, 5, 6, 4, 5)
     return tirada
 
 @pytest.mark.fours
-def test_fours(inyector):
+def test_fours(tirada):
     '''
     The player scores the sum of the dice that reads four
     '''
@@ -103,23 +103,23 @@ def test_fours(inyector):
     valor_esperado = 8
     # No puedo testear con fixtures = inyeccion de dependencias
     # los metodos estaticos como chance()
-    assert valor_esperado == inyector.fours()
+    assert valor_esperado == tirada.fours()
 
 @pytest.mark.fives
-def test_fives(inyector):
+def test_fives(tirada):
     '''
     The player scores the sum of the dice that reads five
     '''
     valor_esperado = 10
-    assert valor_esperado == inyector.fives()
+    assert valor_esperado == tirada.fives()
 
 @pytest.mark.sixes
-def test_sixes(inyector):
+def test_sixes(tirada):
     '''
     The player scores the sum of the dice that reads six
     '''
     valor_esperado = 6
-    assert valor_esperado == inyector.sixes()
+    assert valor_esperado == tirada.sixes()
 
 @pytest.mark.pair
 def test_pair():

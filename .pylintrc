@@ -5,6 +5,14 @@
 # Ojo a la version que usa la extension pylint en vscode
 # y a la instalada en el entorno virtual.
 
+[MAIN]
+
+# Files or directories to be skipped. They should be base names, not paths.
+ignore=
+        yatzy.py, 
+        test_yatzy.py
+
+
 [MESSAGES CONTROL]
 
 # Disable the message, report, category or checker with the given id(s). You

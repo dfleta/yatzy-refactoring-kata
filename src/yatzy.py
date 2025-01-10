@@ -1,103 +1,219 @@
-from src.pips import Pips
-
 class Yatzy:
 
-    # propiedades de clase
-    ZERO = 0
-    FIFTY = 50
-
-    # No es necesario.
-    # Lo mantengo para no romper la interfaz
-    # publica de la clase segun los
-    # casos test originales.
-    def __init__(self, *dice):
-        self.dice = list(dice)
+    @staticmethod
+    def chance(d1, d2, d3, d4, d5):
+        total = 0
+        total += d1
+        total += d2
+        total += d3
+        total += d4
+        total += d5
+        return total
 
     @staticmethod
-    def chance(*dice):
-        return sum(dice)
+    def yatzy(dice):
+        counts = [0] * (len(dice) + 1)
+        for die in dice:
+            counts[die - 1] += 1
+        for i in range(len(counts)):
+            if counts[i] == 5:
+                return 50
+        return 0
 
     @staticmethod
-    def yatzy(*dice):
-        return Yatzy.FIFTY if len(set(dice)) == 1 else Yatzy.ZERO
+    def ones(d1, d2, d3, d4, d5):
+        sum = 0
+        if (d1 == 1):
+            sum += 1
+        if (d2 == 1):
+            sum += 1
+        if (d3 == 1):
+            sum += 1
+        if (d4 == 1):
+            sum += 1
+        if (d5 == 1):
+            sum += 1
+
+        return sum
 
     @staticmethod
-    def ones(*dice):
-        ONE = Pips.ONE.value
-        return dice.count(ONE) * ONE
+    def twos(d1, d2, d3, d4, d5):
+        sum = 0
+        if (d1 == 2):
+            sum += 2
+        if (d2 == 2):
+            sum += 2
+        if (d3 == 2):
+            sum += 2
+        if (d4 == 2):
+            sum += 2
+        if (d5 == 2):
+            sum += 2
+        return sum
 
     @staticmethod
-    def twos(*dice):
-        TWO = Pips.TWO.value
-        return dice.count(TWO) * TWO
+    def threes(d1, d2, d3, d4, d5):
+        s = 0
+        if (d1 == 3):
+            s += 3
+        if (d2 == 3):
+            s += 3
+        if (d3 == 3):
+            s += 3
+        if (d4 == 3):
+            s += 3
+        if (d5 == 3):
+            s += 3
+        return s
 
-    @staticmethod
-    def threes(*dice):
-        THREE = Pips.THREE.value
-        return dice.count(THREE) * THREE
+    def __init__(self, d1=0, d2=0, d3=0, d4=0, _5=0):
+        self.dice = [0] * 5
+        self.dice[0] = d1
+        self.dice[1] = d2
+        self.dice[2] = d3
+        self.dice[3] = d4
+        self.dice[4] = _5
 
     def fours(self):
-        return self.__sum_dice_equals(Pips.FOUR.value)
+        sum = 0
+        for at in range(5):
+            if (self.dice[at] == 4):
+                sum += 4
+        return sum
 
     def fives(self):
-        return self.__sum_dice_equals(Pips.FIVE.value)
+        s = 0
+        i = 0
+        for i in range(len(self.dice)):
+            if (self.dice[i] == 5):
+                s = s + 5
+        return s
 
     def sixes(self):
-        return self.__sum_dice_equals(Pips.SIX.value)
+        sum = 0
+        for at in range(len(self.dice)):
+            if (self.dice[at] == 6):
+                sum = sum + 6
+        return sum
 
-    def __sum_dice_equals(self, pip):
-        return self.dice.count(pip) * pip
+    def score_pair(self, d1, d2, d3, d4, d5):
+        counts = [0] * 6
+        counts[d1 - 1] += 1
+        counts[d2 - 1] += 1
+        counts[d3 - 1] += 1
+        counts[d4 - 1] += 1
+        counts[d5 - 1] += 1
+        at = 0
+        for at in range(6):
+            if (counts[6 - at - 1] == 2):
+                return (6 - at) * 2
+        return 0
 
-    @classmethod
-    def pair(cls, *dice):
-        PAIR = Pips.TWO.value
-        pip= cls.__biggest_pip_repeated(dice, PAIR)
-        return pip * PAIR if pip else Yatzy.ZERO
+    @staticmethod
+    def two_pair(d1, d2, d3, d4, d5):
+        counts = [0] * 6
+        counts[d1 - 1] += 1
+        counts[d2 - 1] += 1
+        counts[d3 - 1] += 1
+        counts[d4 - 1] += 1
+        counts[d5 - 1] += 1
+        n = 0
+        score = 0
+        for i in range(6):
+            if (counts[6 - i - 1] >= 2):
+                n = n + 1
+                score += (6 - i)
 
-    @classmethod
-    def two_pairs(cls, *dice):
-        PAIR = Pips.TWO.value
-        pips_pairs = cls.__filter_pips_repeated(dice, PAIR)
-        return sum(pips_pairs) * PAIR if len(pips_pairs) == Pips.TWO.value else Yatzy.ZERO
-
-    @classmethod
-    def three_of_a_kind(cls, *dice):
-        THREE = Pips.THREE.value
-        pip = cls.__biggest_pip_repeated(dice, THREE)
-        return pip * THREE if pip else Yatzy.ZERO
-
-    @classmethod
-    def four_of_a_kind(cls, *dice):
-        FOUR = Pips.FOUR.value
-        pip = cls.__biggest_pip_repeated(dice, FOUR)
-        return pip * FOUR if pip else Yatzy.ZERO
-
-    @classmethod
-    def __biggest_pip_repeated(cls, dice, times):
-        pips = cls.__filter_pips_repeated(dice, times)
-        return pips[0] if pips else []
-
-    @classmethod
-    def __filter_pips_repeated(cls, dice, times):
-        return list(filter(lambda pip: dice.count(pip) >= times, Pips.reversedValues()))
-
-    @classmethod
-    def small_straight(cls, *dice):
-        return cls.chance(*dice) if not Pips.minus(Pips.SIX) - set(dice) else Yatzy.ZERO
-
-    @classmethod
-    def large_straight(cls, *dice):
-        return cls.chance(*dice) if not Pips.minus(Pips.ONE) - set(dice) else Yatzy.ZERO
-
-    @classmethod
-    def full_house(cls, *dice):
-        if cls.__two_of_a_kind(*dice) and cls.three_of_a_kind(*dice):
-            return cls.__two_of_a_kind(*dice) + cls.three_of_a_kind(*dice)
+        if (n == 2):
+            return score * 2
         else:
-            return Yatzy.ZERO
+            return 0
 
-    @classmethod
-    def __two_of_a_kind(cls, *dice):
-        PAIR = Pips.TWO.value
-        pips = list(filter(lambda pip: dice.count(pip) == Pips.TWO.value, Pips.reversedValues()))
-        return pips[0] * PAIR if pips else Yatzy.ZERO
+    @staticmethod
+    def four_of_a_kind(_1, _2, d3, d4, d5):
+        tallies = [0] * 6
+        tallies[_1 - 1] += 1
+        tallies[_2 - 1] += 1
+        tallies[d3 - 1] += 1
+        tallies[d4 - 1] += 1
+        tallies[d5 - 1] += 1
+        for i in range(6):
+            if (tallies[i] >= 4):
+                return (i + 1) * 4
+        return 0
+
+    @staticmethod
+    def three_of_a_kind(d1, d2, d3, d4, d5):
+        t = [0] * 6
+        t[d1 - 1] += 1
+        t[d2 - 1] += 1
+        t[d3 - 1] += 1
+        t[d4 - 1] += 1
+        t[d5 - 1] += 1
+        for i in range(6):
+            if (t[i] >= 3):
+                return (i + 1) * 3
+        return 0
+
+    @staticmethod
+    def smallStraight(d1, d2, d3, d4, d5):
+        tallies = [0] * 6
+        tallies[d1 - 1] += 1
+        tallies[d2 - 1] += 1
+        tallies[d3 - 1] += 1
+        tallies[d4 - 1] += 1
+        tallies[d5 - 1] += 1
+        if (tallies[0] == 1 and
+                tallies[1] == 1 and
+                tallies[2] == 1 and
+                tallies[3] == 1 and
+                tallies[4] == 1):
+            return 15
+        return 0
+
+    @staticmethod
+    def largeStraight(d1, d2, d3, d4, d5):
+        tallies = [0] * 6
+        tallies[d1 - 1] += 1
+        tallies[d2 - 1] += 1
+        tallies[d3 - 1] += 1
+        tallies[d4 - 1] += 1
+        tallies[d5 - 1] += 1
+        if (tallies[1] == 1 and
+                tallies[2] == 1 and
+                tallies[3] == 1 and
+                tallies[4] == 1
+                and tallies[5] == 1):
+            return 20
+        return 0
+
+    @staticmethod
+    def fullHouse(d1, d2, d3, d4, d5):
+        tallies = []
+        _2 = False
+        i = 0
+        _2_at = 0
+        _3 = False
+        _3_at = 0
+
+        tallies = [0] * 6
+        tallies[d1 - 1] += 1
+        tallies[d2 - 1] += 1
+        tallies[d3 - 1] += 1
+        tallies[d4 - 1] += 1
+        tallies[d5 - 1] += 1
+
+        for i in range(6):
+            if (tallies[i] == 2):
+                _2 = True
+                _2_at = i + 1
+
+        for i in range(6):
+            if (tallies[i] == 3):
+                _3 = True
+                _3_at = i + 1
+
+        if (_2 and _3):
+            return _2_at * 2 + _3_at * 3
+        else:
+            return 0

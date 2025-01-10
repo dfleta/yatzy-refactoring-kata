@@ -1,3 +1,10 @@
+# Fichero generado por pylint --generate-rcfile > .pylintrc
+# Instalar pylint en el entono virtual.
+# Deshabilitar la extensión pylint en vscode, reiniciar extensiones
+# y volverla a habilitar.
+# Ojo a la version que usa la extension pylint en vscode
+# y a la instalada en el entorno virtual.
+
 [MESSAGES CONTROL]
 
 # Disable the message, report, category or checker with the given id(s). You

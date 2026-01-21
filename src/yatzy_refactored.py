@@ -1,7 +1,7 @@
 from src.pips import Pips
 
-class Yatzy:
 
+class Yatzy:
     # propiedades de clase
     ZERO = 0
     FIFTY = 50
@@ -51,7 +51,7 @@ class Yatzy:
     @classmethod
     def pair(cls, *dice):
         PAIR = Pips.TWO.value
-        pip= cls.__biggest_pip_repeated(dice, PAIR)
+        pip = cls.__biggest_pip_repeated(dice, PAIR)
         return pip * PAIR if pip else cls.ZERO
 
     @classmethod
@@ -99,5 +99,7 @@ class Yatzy:
     @classmethod
     def __two_of_a_kind(cls, *dice):
         PAIR = Pips.TWO.value
-        pips = list(filter(lambda pip: dice.count(pip) == Pips.TWO.value, Pips.reversedValues()))
+        pips = list(
+            filter(lambda pip: dice.count(pip) == Pips.TWO.value, Pips.reversedValues())
+        )
         return pips[0] * PAIR if pips else cls.ZERO

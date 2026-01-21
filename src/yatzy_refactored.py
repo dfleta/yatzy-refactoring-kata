@@ -70,7 +70,7 @@ class Yatzy:
     def four_of_a_kind(cls, *dice):
         FOUR = Pips.FOUR.value
         pip = cls.__biggest_pip_repeated(dice, FOUR)
-        return pip * FOUR if pip else Yatzy.ZERO
+        return pip * FOUR if pip else cls.ZERO
 
     @classmethod
     def __biggest_pip_repeated(cls, dice, times):

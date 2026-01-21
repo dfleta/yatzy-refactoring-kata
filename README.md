@@ -234,6 +234,43 @@ Este método usa `self.dice`, el estado de una instancia u objeto de la clase, p
 
 ---
 
+### Referencia `cls`
+
+`cls` es el primer parámetro obligatorio de un `@classmethod`: recibe la clase que invoca el método, no una instancia de la clase (`self`).
+
+Permite acceder a atributos y otros métodos de la misma clase, y respeta la herencia (si una subclase llama, cls apunta a esa subclase).
+
+### Ejemplos en `yatzy_refactored.py`
+
+```python
+  @classmethod
+    def pair(cls, *dice):
+        PAIR = Pips.TWO.value
+        pip = cls.__biggest_pip_repeated(dice, PAIR)
+        return pip * PAIR if pip else cls.ZERO
+```
+
+`@classmethod def pair(cls, *dice)` calcula la suma de los dos mayores dados iguales, sino devuelve cero.
+
+Reutiliza el método de clase `cls.__biggest_pip_repeated` que devuelve los dos mayores dados que coinciden. Este método encapsula una responsabilidad que es reutilizada por otros métodos de la clase. Tiene visibilidad *privada*.
+
+Para acceder a este método de clase, usamos la referencia `cls` desde los métodos que lo invocan.
+
+Además, necesitamos acceder al valor `ZERO`, una constante de la clase, pues es utilizada por otros métodos de la clase para las computaciones de los dados. La refencia a esa constante en la clase es `cls.ZERO`.
+
+Si una subclase redefine `__biggest_pip_repeated`, cls garantiza que se use la versión de la subclase.
+
+El *helpers* privado `__biggest_pip_repeated` acepta `cls` para poder operar sobre la clase (y sus posibles subclases) al filtrar pips.
+
+### Tipos de referencias
+
+`self` → instancia (estado concreto).
+`cls` → clase: configuración/versión actual de la clase, útil para herencia.
+
+Sin `self` ni `cls` → `@staticmethod` o función pura vinculada solo conceptualmente a la clase.
+
+---
+
 ### Prompt
 
 `#file:yatzy_refactored.py #file:test_yatzy_from_scratch.py #file:pips.py`
@@ -243,5 +280,5 @@ He resuelto el kata Yatzy sobre refactorización.
 Utilizo este kata como introducción a la programación orientada a objetos en Python y, en particular, a los distintos tipos de métodos de clase: `staticmethod` y `classmethod`.
 
 Redacta un fichero markdown para mi alumnado de formación profesional de desarrollo de aplicaciones multiplataforma en el módulo de programación donde expliques los conceptos de programación Python y orientada a objetos sobre los métodos de clase `staticmethod` y `classmethod` utilizando los métodos del fichero #file:yatzy_refactored.py como ejemplo.
-
+cls
 El manual de referencia que usamos en el aula es Learning Python de Mark Lutz.

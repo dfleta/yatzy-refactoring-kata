@@ -52,19 +52,19 @@ class Yatzy:
     def pair(cls, *dice):
         PAIR = Pips.TWO.value
         pip= cls.__biggest_pip_repeated(dice, PAIR)
-        return pip * PAIR if pip else Yatzy.ZERO
+        return pip * PAIR if pip else cls.ZERO
 
     @classmethod
     def two_pairs(cls, *dice):
         PAIR = Pips.TWO.value
         pips_pairs = cls.__filter_pips_repeated(dice, PAIR)
-        return sum(pips_pairs) * PAIR if len(pips_pairs) == Pips.TWO.value else Yatzy.ZERO
+        return sum(pips_pairs) * PAIR if len(pips_pairs) == Pips.TWO.value else cls.ZERO
 
     @classmethod
     def three_of_a_kind(cls, *dice):
         THREE = Pips.THREE.value
         pip = cls.__biggest_pip_repeated(dice, THREE)
-        return pip * THREE if pip else Yatzy.ZERO
+        return pip * THREE if pip else cls.ZERO
 
     @classmethod
     def four_of_a_kind(cls, *dice):
@@ -83,21 +83,21 @@ class Yatzy:
 
     @classmethod
     def small_straight(cls, *dice):
-        return cls.chance(*dice) if not Pips.minus(Pips.SIX) - set(dice) else Yatzy.ZERO
+        return cls.chance(*dice) if not Pips.minus(Pips.SIX) - set(dice) else cls.ZERO
 
     @classmethod
     def large_straight(cls, *dice):
-        return cls.chance(*dice) if not Pips.minus(Pips.ONE) - set(dice) else Yatzy.ZERO
+        return cls.chance(*dice) if not Pips.minus(Pips.ONE) - set(dice) else cls.ZERO
 
     @classmethod
     def full_house(cls, *dice):
         if cls.__two_of_a_kind(*dice) and cls.three_of_a_kind(*dice):
             return cls.__two_of_a_kind(*dice) + cls.three_of_a_kind(*dice)
         else:
-            return Yatzy.ZERO
+            return cls.ZERO
 
     @classmethod
     def __two_of_a_kind(cls, *dice):
         PAIR = Pips.TWO.value
         pips = list(filter(lambda pip: dice.count(pip) == Pips.TWO.value, Pips.reversedValues()))
-        return pips[0] * PAIR if pips else Yatzy.ZERO
+        return pips[0] * PAIR if pips else cls.ZERO

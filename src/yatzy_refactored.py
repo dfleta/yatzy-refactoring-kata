@@ -75,7 +75,7 @@ class Yatzy:
     @classmethod
     def __biggest_pip_repeated(cls, dice, times):
         pips = cls.__filter_pips_repeated(dice, times)
-        return pips[0] if pips else []
+        return pips[0] if pips else cls.ZERO
 
     @classmethod
     def __filter_pips_repeated(cls, dice, times):
@@ -91,10 +91,11 @@ class Yatzy:
 
     @classmethod
     def full_house(cls, *dice):
-        if cls.__two_of_a_kind(*dice) and cls.three_of_a_kind(*dice):
-            return cls.__two_of_a_kind(*dice) + cls.three_of_a_kind(*dice)
-        else:
-            return cls.ZERO
+        return (
+            cls.__two_of_a_kind(*dice) + cls.three_of_a_kind(*dice)
+            if cls.__two_of_a_kind(*dice) and cls.three_of_a_kind(*dice)
+            else cls.ZERO
+        )
 
     @classmethod
     def __two_of_a_kind(cls, *dice):

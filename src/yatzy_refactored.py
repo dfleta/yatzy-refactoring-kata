@@ -75,7 +75,7 @@ class Yatzy:
     @classmethod
     def __biggest_pip_repeated(cls, dice, times):
         pips = cls.__filter_pips_repeated(dice, times)
-        return pips[0] if pips else []
+        return pips[0] if pips else cls.ZERO
 
     @classmethod
     def __filter_pips_repeated(cls, dice, times):

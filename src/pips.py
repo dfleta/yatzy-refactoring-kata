@@ -56,5 +56,3 @@ if __name__ == "__main__":
         "\n=== Obtener valores sin FIVE (operación de resta - método personalizado) ==="
     )
     print(Pips.minus(Pips.FIVE))
-
-    print("str:" + Pips.__repr__())
